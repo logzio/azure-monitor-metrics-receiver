@@ -1,7 +1,7 @@
 # Azure Monitor Metrics Receiver
 
 An SDK wrapper that uses Azure Monitor SDK. 
-Lets you receive metrics from Azure resources using Azure Monitor API in 3 ways:
+Lets you receive metrics of Azure resources using Azure Monitor API in 3 ways:
 
 - Resource Target
 - Resource Group Target
