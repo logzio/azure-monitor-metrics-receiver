@@ -1,10 +1,11 @@
 package azure_monitor_metrics_receiver
 
 import (
+	"testing"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestCollectResourceTargetMetrics_AllDataWithValues(t *testing.T) {
@@ -34,7 +35,7 @@ func TestCollectResourceTargetMetrics_AllDataWithValues(t *testing.T) {
 		assert.Len(t, metric.Fields, 3)
 
 		for fieldKey := range metric.Fields {
-			assert.Contains(t, []string{"total", "maximum", "timeStamp"}, fieldKey)
+			assert.Contains(t, []string{MetricFieldTotal, MetricFieldMaximum, MetricFieldTimeStamp}, fieldKey)
 		}
 
 		for tagKey := range metric.Tags {
@@ -42,26 +43,26 @@ func TestCollectResourceTargetMetrics_AllDataWithValues(t *testing.T) {
 		}
 
 		if metric.Name == "azure_monitor_microsoft_test_type1_metric1" {
-			assert.Equal(t, 5.0, metric.Fields["total"])
-			assert.Equal(t, 5.0, metric.Fields["maximum"])
-			assert.Equal(t, "2022-02-22T22:59:00Z", metric.Fields["timeStamp"])
+			assert.Equal(t, 5.0, metric.Fields[MetricFieldTotal])
+			assert.Equal(t, 5.0, metric.Fields[MetricFieldMaximum])
+			assert.Equal(t, "2022-02-22T22:59:00Z", metric.Fields[MetricFieldTimeStamp])
 
 			assert.Equal(t, testSubscriptionID, metric.Tags[MetricTagSubscriptionID])
 			assert.Equal(t, testResourceGroup1, metric.Tags[MetricTagResourceGroup])
-			assert.Equal(t, "resource1", metric.Tags[MetricTagResourceName])
+			assert.Equal(t, testResource1Name, metric.Tags[MetricTagResourceName])
 			assert.Equal(t, testResourceType1, metric.Tags[MetricTagNamespace])
 			assert.Equal(t, testResourceRegion, metric.Tags[MetricTagResourceRegion])
 			assert.Equal(t, string(armmonitor.MetricUnitCount), metric.Tags[MetricTagUnit])
 		}
 
 		if metric.Name == "azure_monitor_microsoft_test_type1_metric2" {
-			assert.Equal(t, 2.5, metric.Fields["total"])
-			assert.Equal(t, 2.5, metric.Fields["maximum"])
-			assert.Equal(t, "2022-02-22T22:59:00Z", metric.Fields["timeStamp"])
+			assert.Equal(t, 2.5, metric.Fields[MetricFieldTotal])
+			assert.Equal(t, 2.5, metric.Fields[MetricFieldMaximum])
+			assert.Equal(t, "2022-02-22T22:59:00Z", metric.Fields[MetricFieldTimeStamp])
 
 			assert.Equal(t, testSubscriptionID, metric.Tags[MetricTagSubscriptionID])
 			assert.Equal(t, testResourceGroup1, metric.Tags[MetricTagResourceGroup])
-			assert.Equal(t, "resource1", metric.Tags[MetricTagResourceName])
+			assert.Equal(t, testResource1Name, metric.Tags[MetricTagResourceName])
 			assert.Equal(t, testResourceType1, metric.Tags[MetricTagNamespace])
 			assert.Equal(t, testResourceRegion, metric.Tags[MetricTagResourceRegion])
 			assert.Equal(t, string(armmonitor.MetricUnitCount), metric.Tags[MetricTagUnit])
@@ -95,20 +96,20 @@ func TestCollectResourceTargetMetrics_LastDataWithNoValue(t *testing.T) {
 	assert.Len(t, metrics[0].Fields, 3)
 
 	for fieldKey := range metrics[0].Fields {
-		assert.Contains(t, []string{"total", "minimum", "timeStamp"}, fieldKey)
+		assert.Contains(t, []string{MetricFieldTotal, MetricFieldMinimum, MetricFieldTimeStamp}, fieldKey)
 	}
 
 	for tagKey := range metrics[0].Tags {
 		assert.Contains(t, []string{MetricTagSubscriptionID, MetricTagResourceGroup, MetricTagResourceName, MetricTagNamespace, MetricTagResourceRegion, MetricTagUnit}, tagKey)
 	}
 
-	assert.Equal(t, 2.5, metrics[0].Fields["total"])
-	assert.Equal(t, 2.5, metrics[0].Fields["minimum"])
-	assert.Equal(t, "2022-02-22T22:58:00Z", metrics[0].Fields["timeStamp"])
+	assert.Equal(t, 2.5, metrics[0].Fields[MetricFieldTotal])
+	assert.Equal(t, 2.5, metrics[0].Fields[MetricFieldMinimum])
+	assert.Equal(t, "2022-02-22T22:58:00Z", metrics[0].Fields[MetricFieldTimeStamp])
 
 	assert.Equal(t, testSubscriptionID, metrics[0].Tags[MetricTagSubscriptionID])
 	assert.Equal(t, testResourceGroup2, metrics[0].Tags[MetricTagResourceGroup])
-	assert.Equal(t, "resource3", metrics[0].Tags[MetricTagResourceName])
+	assert.Equal(t, testResource3Name, metrics[0].Tags[MetricTagResourceName])
 	assert.Equal(t, testResourceType1, metrics[0].Tags[MetricTagNamespace])
 	assert.Equal(t, testResourceRegion, metrics[0].Tags[MetricTagResourceRegion])
 	assert.Equal(t, string(armmonitor.MetricUnitBytes), metrics[0].Tags[MetricTagUnit])
@@ -239,9 +240,9 @@ func TestGetMetricFields_AllTimeseriesWithData(t *testing.T) {
 
 	assert.Len(t, metricFields, 3)
 
-	assert.Equal(t, "2022-02-22T22:59:00Z", metricFields["timeStamp"])
-	assert.Equal(t, 5.0, metricFields["total"])
-	assert.Equal(t, 5.0, metricFields["maximum"])
+	assert.Equal(t, "2022-02-22T22:59:00Z", metricFields[MetricFieldTimeStamp])
+	assert.Equal(t, 5.0, metricFields[MetricFieldTotal])
+	assert.Equal(t, 5.0, metricFields[MetricFieldMaximum])
 }
 
 func TestGetMetricFields_LastTimeseriesWithoutData(t *testing.T) {
@@ -268,9 +269,9 @@ func TestGetMetricFields_LastTimeseriesWithoutData(t *testing.T) {
 
 	assert.Len(t, metricFields, 3)
 
-	assert.Equal(t, "2022-02-22T22:58:00Z", metricFields["timeStamp"])
-	assert.Equal(t, 2.5, metricFields["total"])
-	assert.Equal(t, 2.5, metricFields["minimum"])
+	assert.Equal(t, "2022-02-22T22:58:00Z", metricFields[MetricFieldTimeStamp])
+	assert.Equal(t, 2.5, metricFields[MetricFieldTotal])
+	assert.Equal(t, 2.5, metricFields[MetricFieldMinimum])
 }
 
 func TestGetMetricFields_AllTimeseriesWithoutData(t *testing.T) {
@@ -346,7 +347,7 @@ func TestGetMetricTags_Success(t *testing.T) {
 
 	assert.Equal(t, testSubscriptionID, metricTags[MetricTagSubscriptionID])
 	assert.Equal(t, testResourceGroup1, metricTags[MetricTagResourceGroup])
-	assert.Equal(t, "resource1", metricTags[MetricTagResourceName])
+	assert.Equal(t, testResource1Name, metricTags[MetricTagResourceName])
 	assert.Equal(t, testResourceType1, metricTags[MetricTagNamespace])
 	assert.Equal(t, testResourceRegion, metricTags[MetricTagResourceRegion])
 	assert.Equal(t, string(armmonitor.MetricUnitCount), metricTags[MetricTagUnit])

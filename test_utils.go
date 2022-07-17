@@ -27,12 +27,19 @@ const (
 	testResourceType2 = "Microsoft.Test/type2"
 	testResourceType3 = "Microsoft.Test/type3"
 
-	testResourceGroup1ResourceType1Resource1     = "resourceGroups/" + testResourceGroup1 + "/providers/" + testResourceType1 + "/resource1"
-	testResourceGroup1ResourceType2Resource2     = "resourceGroups/" + testResourceGroup1 + "/providers/" + testResourceType2 + "/resource2"
-	testResourceGroup2ResourceType1Resource3     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType1 + "/resource3"
-	testResourceGroup2ResourceType2Resource4     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType2 + "/resource4"
-	testResourceGroup2ResourceType2Resource5     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType2 + "/resource5"
-	testResourceGroup2ResourceType2Resource6     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType2 + "/resource6"
+	testResource1Name = "resource1"
+	testResource2Name = "resource2"
+	testResource3Name = "resource3"
+	testResource4Name = "resource4"
+	testResource5Name = "resource5"
+	testResource6Name = "resource6"
+
+	testResourceGroup1ResourceType1Resource1     = "resourceGroups/" + testResourceGroup1 + "/providers/" + testResourceType1 + "/" + testResource1Name
+	testResourceGroup1ResourceType2Resource2     = "resourceGroups/" + testResourceGroup1 + "/providers/" + testResourceType2 + "/" + testResource2Name
+	testResourceGroup2ResourceType1Resource3     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType1 + "/" + testResource3Name
+	testResourceGroup2ResourceType2Resource4     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType2 + "/" + testResource4Name
+	testResourceGroup2ResourceType2Resource5     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType2 + "/" + testResource5Name
+	testResourceGroup2ResourceType2Resource6     = "resourceGroups/" + testResourceGroup2 + "/providers/" + testResourceType2 + "/" + testResource6Name
 	testFullResourceGroup1ResourceType1Resource1 = "/subscriptions/" + testSubscriptionID + "/" + testResourceGroup1ResourceType1Resource1
 	testFullResourceGroup1ResourceType2Resource2 = "/subscriptions/" + testSubscriptionID + "/" + testResourceGroup1ResourceType2Resource2
 	testFullResourceGroup2ResourceType1Resource3 = "/subscriptions/" + testSubscriptionID + "/" + testResourceGroup2ResourceType1Resource3
