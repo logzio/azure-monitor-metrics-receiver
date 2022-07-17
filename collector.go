@@ -10,24 +10,30 @@ import (
 const (
 	minMetricsFields = 2
 
-	/*
-	metric fields names
-	*/
+	// MetricFieldTimeStamp is timeStamp metric field name.
 	MetricFieldTimeStamp = "timeStamp"
+	// MetricFieldTotal is total metric field name.
 	MetricFieldTotal     = "total"
+	// MetricFieldAverage is average metric field name.
 	MetricFieldAverage   = "average"
+	// MetricFieldCount is count metric field name.
 	MetricFieldCount     = "count"
+	// MetricFieldMinimum is minimum metric field name.
 	MetricFieldMinimum   = "minimum"
+	// MetricFieldMaximum is maximum metric field name.
 	MetricFieldMaximum   = "maximum"
 
-	/*
-	metric tags names
-	*/
+	// MetricTagSubscriptionID is subscription ID metric tag name.
 	MetricTagSubscriptionID = "subscription_id"
+	// MetricTagResourceGroup is resource group metric tag name.
 	MetricTagResourceGroup  = "resource_group"
+	// MetricTagResourceName is resource name metric tag name.
 	MetricTagResourceName   = "resource_name"
+	// MetricTagNamespace is namespace metric tag name.
 	MetricTagNamespace      = "namespace"
+	// MetricTagResourceRegion is resource region metric tag name.
 	MetricTagResourceRegion = "resource_region"
+	// MetricTagUnit is unit metric tag name.
 	MetricTagUnit           = "unit"
 )
 
