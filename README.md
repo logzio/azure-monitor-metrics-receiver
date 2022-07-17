@@ -59,14 +59,14 @@ get metrics of resources under specific resource group, using resource types.
 
 ```go
 type ResourceGroupTarget struct {
-resourceGroup string
-resources     []*Resource
+    resourceGroup string
+    resources     []*Resource
 }
 
 type Resource struct {
-resourceType string
-metrics      []string
-aggregations []string
+    resourceType string
+    metrics      []string
+    aggregations []string
 }
 ```
 
@@ -82,9 +82,9 @@ get metrics of resources under the subscription, using resource types.
 
 ```go
 type Resource struct {
-resourceType string
-metrics      []string
-aggregations []string
+    resourceType string
+    metrics      []string
+    aggregations []string
 }
 ```
 
