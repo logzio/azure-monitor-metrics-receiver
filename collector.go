@@ -9,6 +9,13 @@ import (
 const (
 	minMetricsFields = 2
 
+	MetricFieldTimeStamp = "timeStamp"
+	MetricFieldTotal = "total"
+	MetricFieldAverage = "average"
+	MetricFieldCount = "count"
+	MetricFieldMinimum = "minimum"
+	MetricFieldMaximum = "maximum"
+
 	MetricTagSubscriptionID = "subscription_id"
 	MetricTagResourceGroup  = "resource_group"
 	MetricTagResourceName   = "resource_name"
@@ -194,30 +201,30 @@ func getMetricsClientMetricValueFields(metricValue *armmonitor.MetricValue) map[
 	metricFields := make(map[string]interface{})
 	metricValueFieldsNum := 1
 
-	metricFields["timeStamp"] = metricValue.TimeStamp.Format("2006-01-02T15:04:05Z07:00")
+	metricFields[MetricFieldTimeStamp] = metricValue.TimeStamp.Format("2006-01-02T15:04:05Z07:00")
 
 	if metricValue.Total != nil {
-		metricFields["total"] = *metricValue.Total
+		metricFields[MetricFieldTotal] = *metricValue.Total
 		metricValueFieldsNum++
 	}
 
 	if metricValue.Average != nil {
-		metricFields["average"] = *metricValue.Average
+		metricFields[MetricFieldAverage] = *metricValue.Average
 		metricValueFieldsNum++
 	}
 
 	if metricValue.Count != nil {
-		metricFields["count"] = *metricValue.Count
+		metricFields[MetricFieldCount] = *metricValue.Count
 		metricValueFieldsNum++
 	}
 
 	if metricValue.Minimum != nil {
-		metricFields["minimum"] = *metricValue.Minimum
+		metricFields[MetricFieldMinimum] = *metricValue.Minimum
 		metricValueFieldsNum++
 	}
 
 	if metricValue.Maximum != nil {
-		metricFields["maximum"] = *metricValue.Maximum
+		metricFields[MetricFieldMaximum] = *metricValue.Maximum
 		metricValueFieldsNum++
 	}
 
