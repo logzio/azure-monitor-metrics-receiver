@@ -22,7 +22,7 @@ and `subscription_id` for accessing Azure resources.
 
 ## Resource Target
 
-get metrics of specific resource.
+get metrics of a specific resource.
 
 ```go
 type ResourceTarget struct {
@@ -82,6 +82,6 @@ type Resource struct {
 }
 ```
 
-`resourceType` is the type of resources you want to collect metrics from.
+`resourceType` is the type of resources you want to collect metrics of.
 
 * Info about `metrics` and `aggregations` can be found in Resource Target section.
