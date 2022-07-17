@@ -2,19 +2,20 @@ package azure_monitor_metrics_receiver
 
 import (
 	"fmt"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 	"strings"
+
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 )
 
 const (
 	minMetricsFields = 2
 
 	MetricFieldTimeStamp = "timeStamp"
-	MetricFieldTotal = "total"
-	MetricFieldAverage = "average"
-	MetricFieldCount = "count"
-	MetricFieldMinimum = "minimum"
-	MetricFieldMaximum = "maximum"
+	MetricFieldTotal     = "total"
+	MetricFieldAverage   = "average"
+	MetricFieldCount     = "count"
+	MetricFieldMinimum   = "minimum"
+	MetricFieldMaximum   = "maximum"
 
 	MetricTagSubscriptionID = "subscription_id"
 	MetricTagResourceGroup  = "resource_group"
@@ -104,9 +105,9 @@ func collectMetrics(response *armmonitor.MetricsClientListResponse) ([]*Metric, 
 		}
 
 		metrics = append(metrics, &Metric{
-			Name: *metricName,
+			Name:   *metricName,
 			Fields: metricFields,
-			Tags: metricTags,
+			Tags:   metricTags,
 		})
 	}
 

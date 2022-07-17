@@ -3,23 +3,24 @@ package azure_monitor_metrics_receiver
 import (
 	"context"
 	"fmt"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 )
 
 type AzureMonitorMetricsReceiver struct {
-	Targets 	         *Targets
-	AzureClients         *AzureClients
+	Targets      *Targets
+	AzureClients *AzureClients
 
-	subscriptionID       string
-	clientID             string
-	clientSecret         string
-	tenantID             string
+	subscriptionID string
+	clientID       string
+	clientSecret   string
+	tenantID       string
 }
 
 type Targets struct {
-	ResourceTargets      []*ResourceTarget
+	ResourceTargets []*ResourceTarget
 
 	resourceGroupTargets []*ResourceGroupTarget
 	subscriptionTargets  []*Resource
@@ -43,16 +44,16 @@ type Resource struct {
 }
 
 type AzureClients struct {
-	Ctx						context.Context
+	Ctx                     context.Context
 	ResourcesClient         ResourcesClient
 	MetricDefinitionsClient MetricDefinitionsClient
 	MetricsClient           MetricsClient
 }
 
 type Metric struct {
-	Name string
+	Name   string
 	Fields map[string]interface{}
-	Tags map[string]string
+	Tags   map[string]string
 }
 
 type azureResourcesClient struct {
@@ -74,12 +75,12 @@ type MetricsClient interface {
 
 func NewAzureMonitorMetricsReceiver(subscriptionID string, clientID string, clientSecret string, tenantID string, targets *Targets, azureClients *AzureClients) (*AzureMonitorMetricsReceiver, error) {
 	azureMonitorMetricsReceiver := &AzureMonitorMetricsReceiver{
-		Targets: targets,
-		AzureClients: azureClients,
+		Targets:        targets,
+		AzureClients:   azureClients,
 		subscriptionID: subscriptionID,
-		clientID: clientID,
-		clientSecret: clientSecret,
-		tenantID: tenantID,
+		clientID:       clientID,
+		clientSecret:   clientSecret,
+		tenantID:       tenantID,
 	}
 
 	if err := azureMonitorMetricsReceiver.checkValidation(); err != nil {
@@ -92,9 +93,9 @@ func NewAzureMonitorMetricsReceiver(subscriptionID string, clientID string, clie
 
 func NewTargets(resourceTargets []*ResourceTarget, resourceGroupTargets []*ResourceGroupTarget, subscriptionTargets []*Resource) *Targets {
 	return &Targets{
-		ResourceTargets: resourceTargets,
+		ResourceTargets:      resourceTargets,
 		resourceGroupTargets: resourceGroupTargets,
-		subscriptionTargets: subscriptionTargets,
+		subscriptionTargets:  subscriptionTargets,
 	}
 }
 
@@ -109,14 +110,14 @@ func NewResourceTarget(resourceID string, metrics []string, aggregations []strin
 func NewResourceGroupTarget(resourceGroup string, resources []*Resource) *ResourceGroupTarget {
 	return &ResourceGroupTarget{
 		resourceGroup: resourceGroup,
-		resources: resources,
+		resources:     resources,
 	}
 }
 
 func NewResource(resourceType string, metrics []string, aggregations []string) *Resource {
 	return &Resource{
 		resourceType: resourceType,
-		metrics: metrics,
+		metrics:      metrics,
 		aggregations: aggregations,
 	}
 }
