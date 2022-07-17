@@ -1,4 +1,4 @@
-package azure_monitor_metrics_receiver
+package azuremonitormetricsreceiver
 
 import (
 	"fmt"
@@ -10,6 +10,9 @@ import (
 const (
 	minMetricsFields = 2
 
+	/*
+	metric fields names
+	*/
 	MetricFieldTimeStamp = "timeStamp"
 	MetricFieldTotal     = "total"
 	MetricFieldAverage   = "average"
@@ -17,6 +20,9 @@ const (
 	MetricFieldMinimum   = "minimum"
 	MetricFieldMaximum   = "maximum"
 
+	/*
+	metric tags names
+	*/
 	MetricTagSubscriptionID = "subscription_id"
 	MetricTagResourceGroup  = "resource_group"
 	MetricTagResourceName   = "resource_name"
@@ -25,6 +31,7 @@ const (
 	MetricTagUnit           = "unit"
 )
 
+// CollectResourceTargetMetrics collects metrics of a resource target.
 func (ammr *AzureMonitorMetricsReceiver) CollectResourceTargetMetrics(target *ResourceTarget) ([]*Metric, []string, error) {
 	metricNames := strings.Join(target.Metrics, ",")
 	aggregations := strings.Join(target.Aggregations, ",")

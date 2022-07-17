@@ -1,4 +1,4 @@
-package azure_monitor_metrics_receiver
+package azuremonitormetricsreceiver
 
 import (
 	"testing"

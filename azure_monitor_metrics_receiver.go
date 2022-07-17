@@ -1,4 +1,4 @@
-package azure_monitor_metrics_receiver
+package azuremonitormetricsreceiver
 
 import (
 	"context"
@@ -9,6 +9,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 )
 
+// AzureMonitorMetricsReceiver is the receiver that gets metrics of Azure resources using Azure Monitor API.
 type AzureMonitorMetricsReceiver struct {
 	Targets      *Targets
 	AzureClients *AzureClients
@@ -19,6 +20,7 @@ type AzureMonitorMetricsReceiver struct {
 	tenantID       string
 }
 
+// Targets contains all targets types.
 type Targets struct {
 	ResourceTargets []*ResourceTarget
 
@@ -26,23 +28,27 @@ type Targets struct {
 	subscriptionTargets  []*Resource
 }
 
+// ResourceTarget describes an Azure resource by resource ID.
 type ResourceTarget struct {
 	ResourceID   string
 	Metrics      []string
 	Aggregations []string
 }
 
+// ResourceGroupTarget describes an Azure resource group.
 type ResourceGroupTarget struct {
 	resourceGroup string
 	resources     []*Resource
 }
 
+// Resource describes an Azure resource by resource type.
 type Resource struct {
 	resourceType string
 	metrics      []string
 	aggregations []string
 }
 
+// AzureClients contains all clients that communicate with Azure Monitor API.
 type AzureClients struct {
 	Ctx                     context.Context
 	ResourcesClient         ResourcesClient
@@ -50,6 +56,7 @@ type AzureClients struct {
 	MetricsClient           MetricsClient
 }
 
+// Metric is a metric of an Azure resource using Azure Monitor API.
 type Metric struct {
 	Name   string
 	Fields map[string]interface{}
@@ -60,19 +67,23 @@ type azureResourcesClient struct {
 	client *armresources.Client
 }
 
+// ResourcesClient is an Azure resources client interface.
 type ResourcesClient interface {
 	List(context.Context, *armresources.ClientListOptions) ([]*armresources.ClientListResponse, error)
 	ListByResourceGroup(context.Context, string, *armresources.ClientListByResourceGroupOptions) ([]*armresources.ClientListByResourceGroupResponse, error)
 }
 
+// MetricDefinitionsClient is an Azure metric definitions client interface.
 type MetricDefinitionsClient interface {
 	List(context.Context, string, *armmonitor.MetricDefinitionsClientListOptions) (armmonitor.MetricDefinitionsClientListResponse, error)
 }
 
+// MetricsClient is an Azure metrics client interface.
 type MetricsClient interface {
 	List(context.Context, string, *armmonitor.MetricsClientListOptions) (armmonitor.MetricsClientListResponse, error)
 }
 
+// NewAzureMonitorMetricsReceiver lets you create a new receiver.
 func NewAzureMonitorMetricsReceiver(subscriptionID string, clientID string, clientSecret string, tenantID string, targets *Targets, azureClients *AzureClients) (*AzureMonitorMetricsReceiver, error) {
 	azureMonitorMetricsReceiver := &AzureMonitorMetricsReceiver{
 		Targets:        targets,
@@ -91,6 +102,7 @@ func NewAzureMonitorMetricsReceiver(subscriptionID string, clientID string, clie
 	return azureMonitorMetricsReceiver, nil
 }
 
+// NewTargets lets you create a new targets object.
 func NewTargets(resourceTargets []*ResourceTarget, resourceGroupTargets []*ResourceGroupTarget, subscriptionTargets []*Resource) *Targets {
 	return &Targets{
 		ResourceTargets:      resourceTargets,
@@ -99,6 +111,7 @@ func NewTargets(resourceTargets []*ResourceTarget, resourceGroupTargets []*Resou
 	}
 }
 
+// NewResourceTarget lets you create a new resource target.
 func NewResourceTarget(resourceID string, metrics []string, aggregations []string) *ResourceTarget {
 	return &ResourceTarget{
 		ResourceID:   resourceID,
@@ -107,6 +120,7 @@ func NewResourceTarget(resourceID string, metrics []string, aggregations []strin
 	}
 }
 
+// NewResourceGroupTarget lets you create a new resource group target.
 func NewResourceGroupTarget(resourceGroup string, resources []*Resource) *ResourceGroupTarget {
 	return &ResourceGroupTarget{
 		resourceGroup: resourceGroup,
@@ -114,6 +128,7 @@ func NewResourceGroupTarget(resourceGroup string, resources []*Resource) *Resour
 	}
 }
 
+// NewResource lets you create a new resource.
 func NewResource(resourceType string, metrics []string, aggregations []string) *Resource {
 	return &Resource{
 		resourceType: resourceType,

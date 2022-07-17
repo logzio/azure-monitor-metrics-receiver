@@ -1,4 +1,4 @@
-package azure_monitor_metrics_receiver
+package azuremonitormetricsreceiver
 
 import (
 	"context"
@@ -11,9 +11,11 @@ import (
 )
 
 const (
+	// MaxMetricsPerRequest is max metrics per request to Azure Monitor API.
 	MaxMetricsPerRequest = 20
 )
 
+// CreateAzureClients creates Azure clients.
 func CreateAzureClients(subscriptionID string, clientID string, clientSecret string, tenantID string) (*AzureClients, error) {
 	credential, err := azidentity.NewClientSecretCredential(tenantID, clientID, clientSecret, nil)
 	if err != nil {
@@ -133,6 +135,7 @@ func (ammr *AzureMonitorMetricsReceiver) addPrefixToResourceTargetsResourceID() 
 	}
 }
 
+// CreateResourceTargetsFromResourceGroupTargets creates resource targets from resource group targets.
 func (ammr *AzureMonitorMetricsReceiver) CreateResourceTargetsFromResourceGroupTargets() error {
 	if len(ammr.Targets.resourceGroupTargets) == 0 {
 		return nil
@@ -168,6 +171,7 @@ func (ammr *AzureMonitorMetricsReceiver) createResourceTargetFromResourceGroupTa
 	return nil
 }
 
+// CreateResourceTargetsFromSubscriptionTargets creates resource targets from subscription targets.
 func (ammr *AzureMonitorMetricsReceiver) CreateResourceTargetsFromSubscriptionTargets() error {
 	if len(ammr.Targets.subscriptionTargets) == 0 {
 		return nil
@@ -226,6 +230,7 @@ func (ammr *AzureMonitorMetricsReceiver) createResourceTargetFromTargetResources
 	return resourceTargetsCreatedNum, nil
 }
 
+// CheckResourceTargetsMetricsValidation checks resource targets metrics validation.
 func (ammr *AzureMonitorMetricsReceiver) CheckResourceTargetsMetricsValidation() error {
 	for _, target := range ammr.Targets.ResourceTargets {
 		if len(target.Metrics) > 0 {
@@ -243,6 +248,7 @@ func (ammr *AzureMonitorMetricsReceiver) CheckResourceTargetsMetricsValidation()
 	return nil
 }
 
+// SetResourceTargetsMetrics sets resource targets metrics if their metrics array is empty.
 func (ammr *AzureMonitorMetricsReceiver) SetResourceTargetsMetrics() error {
 	for _, target := range ammr.Targets.ResourceTargets {
 		if len(target.Metrics) > 0 {
@@ -269,6 +275,7 @@ func (ammr *AzureMonitorMetricsReceiver) changeResourceTargetsMetricsWithComma()
 	}
 }
 
+// SplitResourceTargetsMetricsByMinTimeGrain splits resource targets metrics by min time grain.
 func (ammr *AzureMonitorMetricsReceiver) SplitResourceTargetsMetricsByMinTimeGrain() error {
 	for _, target := range ammr.Targets.ResourceTargets {
 		if err := ammr.splitResourceTargetMetricsByMinTimeGrain(target); err != nil {
@@ -328,6 +335,7 @@ func (ammr *AzureMonitorMetricsReceiver) getMetricDefinitionsResponse(resourceID
 	return &response, nil
 }
 
+// SplitResourceTargetsWithMoreThanMaxMetrics splits resource targets with more than max metrics.
 func (ammr *AzureMonitorMetricsReceiver) SplitResourceTargetsWithMoreThanMaxMetrics() {
 	for _, target := range ammr.Targets.ResourceTargets {
 		if len(target.Metrics) <= MaxMetricsPerRequest {
@@ -352,6 +360,7 @@ func (ammr *AzureMonitorMetricsReceiver) SplitResourceTargetsWithMoreThanMaxMetr
 	}
 }
 
+// SetResourceTargetsAggregations sets resource targets aggregations if their aggregations array is empty.
 func (ammr *AzureMonitorMetricsReceiver) SetResourceTargetsAggregations() {
 	for _, target := range ammr.Targets.ResourceTargets {
 		if len(target.Aggregations) == 0 {

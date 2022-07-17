@@ -62,12 +62,6 @@ type ResourceGroupTarget struct {
     resourceGroup string
     resources     []*Resource
 }
-
-type Resource struct {
-    resourceType string
-    metrics      []string
-    aggregations []string
-}
 ```
 
 `resourceGroup` is the name of the resource group.
