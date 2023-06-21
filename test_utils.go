@@ -77,21 +77,19 @@ func (marc *mockAzureResourcesClient) List(_ context.Context, _ *armresources.Cl
 		testFullResourceGroup2ResourceType1Resource3)
 	resourceTypes = append(resourceTypes, testResourceType1, testResourceType2)
 	response := &armresources.ClientListResponse{
-		ClientListResult: armresources.ClientListResult{
-			ResourceListResult: armresources.ResourceListResult{
-				Value: []*armresources.GenericResourceExpanded{
-					{
-						ID:   &resourceIDS[0],
-						Type: &resourceTypes[0],
-					},
-					{
-						ID:   &resourceIDS[1],
-						Type: &resourceTypes[1],
-					},
-					{
-						ID:   &resourceIDS[2],
-						Type: &resourceTypes[0],
-					},
+		ResourceListResult: armresources.ResourceListResult{
+			Value: []*armresources.GenericResourceExpanded{
+				{
+					ID:   &resourceIDS[0],
+					Type: &resourceTypes[0],
+				},
+				{
+					ID:   &resourceIDS[1],
+					Type: &resourceTypes[1],
+				},
+				{
+					ID:   &resourceIDS[2],
+					Type: &resourceTypes[0],
 				},
 			},
 		},
@@ -116,17 +114,15 @@ func (marc *mockAzureResourcesClient) ListByResourceGroup(
 
 	if resourceGroup == testResourceGroup1 {
 		response := &armresources.ClientListByResourceGroupResponse{
-			ClientListByResourceGroupResult: armresources.ClientListByResourceGroupResult{
-				ResourceListResult: armresources.ResourceListResult{
-					Value: []*armresources.GenericResourceExpanded{
-						{
-							ID:   &resourceIDS[0],
-							Type: &resourceTypes[0],
-						},
-						{
-							ID:   &resourceIDS[1],
-							Type: &resourceTypes[1],
-						},
+			ResourceListResult: armresources.ResourceListResult{
+				Value: []*armresources.GenericResourceExpanded{
+					{
+						ID:   &resourceIDS[0],
+						Type: &resourceTypes[0],
+					},
+					{
+						ID:   &resourceIDS[1],
+						Type: &resourceTypes[1],
 					},
 				},
 			},
@@ -138,13 +134,11 @@ func (marc *mockAzureResourcesClient) ListByResourceGroup(
 
 	if resourceGroup == testResourceGroup2 {
 		response := &armresources.ClientListByResourceGroupResponse{
-			ClientListByResourceGroupResult: armresources.ClientListByResourceGroupResult{
-				ResourceListResult: armresources.ResourceListResult{
-					Value: []*armresources.GenericResourceExpanded{
-						{
-							ID:   &resourceIDS[2],
-							Type: &resourceTypes[0],
-						},
+			ResourceListResult: armresources.ResourceListResult{
+				Value: []*armresources.GenericResourceExpanded{
+					{
+						ID:   &resourceIDS[2],
+						Type: &resourceTypes[0],
 					},
 				},
 			},
@@ -168,46 +162,44 @@ func (mamdc *mockAzureMetricDefinitionsClient) List(
 
 	if resourceID == testFullResourceGroup1ResourceType1Resource1 {
 		return armmonitor.MetricDefinitionsClientListResponse{
-			MetricDefinitionsClientListResult: armmonitor.MetricDefinitionsClientListResult{
-				MetricDefinitionCollection: armmonitor.MetricDefinitionCollection{
-					Value: []*armmonitor.MetricDefinition{
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[0],
+			MetricDefinitionCollection: armmonitor.MetricDefinitionCollection{
+				Value: []*armmonitor.MetricDefinition{
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[0],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[0],
 							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[0],
-								},
-								{
-									TimeGrain: &timeGrains[1],
-								},
+							{
+								TimeGrain: &timeGrains[1],
 							},
 						},
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[1],
+					},
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[1],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[0],
 							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[0],
-								},
-								{
-									TimeGrain: &timeGrains[1],
-								},
+							{
+								TimeGrain: &timeGrains[1],
 							},
 						},
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[2],
-							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[1],
-								},
+					},
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[2],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[1],
 							},
 						},
 					},
@@ -218,32 +210,30 @@ func (mamdc *mockAzureMetricDefinitionsClient) List(
 
 	if resourceID == testFullResourceGroup1ResourceType2Resource2 {
 		return armmonitor.MetricDefinitionsClientListResponse{
-			MetricDefinitionsClientListResult: armmonitor.MetricDefinitionsClientListResult{
-				MetricDefinitionCollection: armmonitor.MetricDefinitionCollection{
-					Value: []*armmonitor.MetricDefinition{
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[0],
+			MetricDefinitionCollection: armmonitor.MetricDefinitionCollection{
+				Value: []*armmonitor.MetricDefinition{
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[0],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[0],
 							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[0],
-								},
-								{
-									TimeGrain: &timeGrains[1],
-								},
+							{
+								TimeGrain: &timeGrains[1],
 							},
 						},
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[1],
-							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[0],
-								},
+					},
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[1],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[0],
 							},
 						},
 					},
@@ -254,49 +244,47 @@ func (mamdc *mockAzureMetricDefinitionsClient) List(
 
 	if resourceID == testFullResourceGroup2ResourceType1Resource3 {
 		return armmonitor.MetricDefinitionsClientListResponse{
-			MetricDefinitionsClientListResult: armmonitor.MetricDefinitionsClientListResult{
-				MetricDefinitionCollection: armmonitor.MetricDefinitionCollection{
-					Value: []*armmonitor.MetricDefinition{
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[0],
+			MetricDefinitionCollection: armmonitor.MetricDefinitionCollection{
+				Value: []*armmonitor.MetricDefinition{
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[0],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[0],
 							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[0],
-								},
-								{
-									TimeGrain: &timeGrains[1],
-								},
+							{
+								TimeGrain: &timeGrains[1],
 							},
 						},
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[1],
+					},
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[1],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[0],
 							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[0],
-								},
-								{
-									TimeGrain: &timeGrains[1],
-								},
+							{
+								TimeGrain: &timeGrains[1],
 							},
 						},
-						{
-							ID: &resourceID,
-							Name: &armmonitor.LocalizableString{
-								Value: &metricNames[2],
+					},
+					{
+						ID: &resourceID,
+						Name: &armmonitor.LocalizableString{
+							Value: &metricNames[2],
+						},
+						MetricAvailabilities: []*armmonitor.MetricAvailability{
+							{
+								TimeGrain: &timeGrains[0],
 							},
-							MetricAvailabilities: []*armmonitor.MetricAvailability{
-								{
-									TimeGrain: &timeGrains[0],
-								},
-								{
-									TimeGrain: &timeGrains[1],
-								},
+							{
+								TimeGrain: &timeGrains[1],
 							},
 						},
 					},
@@ -315,7 +303,7 @@ func (mamc *mockAzureMetricsClient) List(
 	namespaces := make([]string, 0)
 	metricIDS := make([]string, 0)
 	metricNames := make([]string, 0)
-	metricUnits := make([]armmonitor.MetricUnit, 0)
+	metricUnits := make([]armmonitor.Unit, 0)
 	timeStamps := make([]time.Time, 0)
 	aggregationValues := make([]float64, 0)
 	namespaces = append(namespaces, testResourceType1, testResourceType2)
@@ -328,7 +316,7 @@ func (mamc *mockAzureMetricsClient) List(
 		testFullResourceGroup2ResourceType2Resource5+"/providers/Microsoft.Insights/metrics/metric2",
 		testFullResourceGroup2ResourceType2Resource6+"/providers/Microsoft.Insights/metrics/metric2")
 	metricNames = append(metricNames, testMetric1, testMetric2, testMetric3)
-	metricUnits = append(metricUnits, armmonitor.MetricUnitCount, armmonitor.MetricUnitBytes)
+	metricUnits = append(metricUnits, armmonitor.UnitCount, armmonitor.UnitBytes)
 	timeStamps = append(timeStamps,
 		time.Date(2022, 2, 22, 22, 0, 0, 0, time.UTC),
 		time.Date(2022, 2, 22, 22, 1, 0, 0, time.UTC),
@@ -341,89 +329,87 @@ func (mamc *mockAzureMetricsClient) List(
 
 	if resourceID == testFullResourceGroup1ResourceType1Resource1 {
 		return armmonitor.MetricsClientListResponse{
-			MetricsClientListResult: armmonitor.MetricsClientListResult{
-				Response: armmonitor.Response{
-					Namespace:      &namespaces[0],
-					Resourceregion: &resourceRegion,
-					Value: []*armmonitor.Metric{
-						{
-							ID: &metricIDS[0],
-							Name: &armmonitor.LocalizableString{
-								LocalizedValue: &metricNames[0],
-							},
-							Unit: &metricUnits[0],
-							Timeseries: []*armmonitor.TimeSeriesElement{
-								{
-									Data: []*armmonitor.MetricValue{
-										{
-											TimeStamp: &timeStamps[0],
-											Total:     &aggregationValues[0],
-											Maximum:   &aggregationValues[0],
-										},
-										{
-											TimeStamp: &timeStamps[1],
-											Total:     &aggregationValues[1],
-											Maximum:   &aggregationValues[1],
-										},
-										{
-											TimeStamp: &timeStamps[2],
-											Total:     &aggregationValues[2],
-											Maximum:   &aggregationValues[2],
-										},
-										{
-											TimeStamp: &timeStamps[3],
-											Total:     &aggregationValues[1],
-											Maximum:   &aggregationValues[2],
-										},
-										{
-											TimeStamp: &timeStamps[4],
-											Total:     &aggregationValues[4],
-											Maximum:   &aggregationValues[4],
-										},
+			Response: armmonitor.Response{
+				Namespace:      &namespaces[0],
+				Resourceregion: &resourceRegion,
+				Value: []*armmonitor.Metric{
+					{
+						ID: &metricIDS[0],
+						Name: &armmonitor.LocalizableString{
+							LocalizedValue: &metricNames[0],
+						},
+						Unit: &metricUnits[0],
+						Timeseries: []*armmonitor.TimeSeriesElement{
+							{
+								Data: []*armmonitor.MetricValue{
+									{
+										TimeStamp: &timeStamps[0],
+										Total:     &aggregationValues[0],
+										Maximum:   &aggregationValues[0],
+									},
+									{
+										TimeStamp: &timeStamps[1],
+										Total:     &aggregationValues[1],
+										Maximum:   &aggregationValues[1],
+									},
+									{
+										TimeStamp: &timeStamps[2],
+										Total:     &aggregationValues[2],
+										Maximum:   &aggregationValues[2],
+									},
+									{
+										TimeStamp: &timeStamps[3],
+										Total:     &aggregationValues[1],
+										Maximum:   &aggregationValues[2],
+									},
+									{
+										TimeStamp: &timeStamps[4],
+										Total:     &aggregationValues[4],
+										Maximum:   &aggregationValues[4],
 									},
 								},
 							},
-							ErrorCode: &metricErrorCode,
 						},
-						{
-							ID: &metricIDS[1],
-							Name: &armmonitor.LocalizableString{
-								LocalizedValue: &metricNames[1],
-							},
-							Unit: &metricUnits[0],
-							Timeseries: []*armmonitor.TimeSeriesElement{
-								{
-									Data: []*armmonitor.MetricValue{
-										{
-											TimeStamp: &timeStamps[0],
-											Total:     &aggregationValues[1],
-											Maximum:   &aggregationValues[1],
-										},
-										{
-											TimeStamp: &timeStamps[1],
-											Total:     &aggregationValues[0],
-											Maximum:   &aggregationValues[1],
-										},
-										{
-											TimeStamp: &timeStamps[2],
-											Total:     &aggregationValues[0],
-											Maximum:   &aggregationValues[1],
-										},
-										{
-											TimeStamp: &timeStamps[3],
-											Total:     &aggregationValues[2],
-											Maximum:   &aggregationValues[2],
-										},
-										{
-											TimeStamp: &timeStamps[4],
-											Total:     &aggregationValues[2],
-											Maximum:   &aggregationValues[2],
-										},
+						ErrorCode: &metricErrorCode,
+					},
+					{
+						ID: &metricIDS[1],
+						Name: &armmonitor.LocalizableString{
+							LocalizedValue: &metricNames[1],
+						},
+						Unit: &metricUnits[0],
+						Timeseries: []*armmonitor.TimeSeriesElement{
+							{
+								Data: []*armmonitor.MetricValue{
+									{
+										TimeStamp: &timeStamps[0],
+										Total:     &aggregationValues[1],
+										Maximum:   &aggregationValues[1],
+									},
+									{
+										TimeStamp: &timeStamps[1],
+										Total:     &aggregationValues[0],
+										Maximum:   &aggregationValues[1],
+									},
+									{
+										TimeStamp: &timeStamps[2],
+										Total:     &aggregationValues[0],
+										Maximum:   &aggregationValues[1],
+									},
+									{
+										TimeStamp: &timeStamps[3],
+										Total:     &aggregationValues[2],
+										Maximum:   &aggregationValues[2],
+									},
+									{
+										TimeStamp: &timeStamps[4],
+										Total:     &aggregationValues[2],
+										Maximum:   &aggregationValues[2],
 									},
 								},
 							},
-							ErrorCode: &metricErrorCode,
 						},
+						ErrorCode: &metricErrorCode,
 					},
 				},
 			},
@@ -432,50 +418,48 @@ func (mamc *mockAzureMetricsClient) List(
 
 	if resourceID == testFullResourceGroup1ResourceType2Resource2 {
 		return armmonitor.MetricsClientListResponse{
-			MetricsClientListResult: armmonitor.MetricsClientListResult{
-				Response: armmonitor.Response{
-					Namespace:      &namespaces[1],
-					Resourceregion: &resourceRegion,
-					Value: []*armmonitor.Metric{
-						{
-							ID: &metricIDS[2],
-							Name: &armmonitor.LocalizableString{
-								LocalizedValue: &metricNames[0],
-							},
-							Unit: &metricUnits[0],
-							Timeseries: []*armmonitor.TimeSeriesElement{
-								{
-									Data: []*armmonitor.MetricValue{
-										{
-											TimeStamp: &timeStamps[0],
-											Total:     &aggregationValues[4],
-											Minimum:   &aggregationValues[4],
-										},
-										{
-											TimeStamp: &timeStamps[1],
-											Total:     &aggregationValues[3],
-											Minimum:   &aggregationValues[3],
-										},
-										{
-											TimeStamp: &timeStamps[2],
-											Total:     &aggregationValues[4],
-											Minimum:   &aggregationValues[3],
-										},
-										{
-											TimeStamp: &timeStamps[3],
-											Total:     &aggregationValues[2],
-											Minimum:   &aggregationValues[2],
-										},
-										{
-											TimeStamp: &timeStamps[4],
-											Total:     &aggregationValues[4],
-											Minimum:   &aggregationValues[2],
-										},
+			Response: armmonitor.Response{
+				Namespace:      &namespaces[1],
+				Resourceregion: &resourceRegion,
+				Value: []*armmonitor.Metric{
+					{
+						ID: &metricIDS[2],
+						Name: &armmonitor.LocalizableString{
+							LocalizedValue: &metricNames[0],
+						},
+						Unit: &metricUnits[0],
+						Timeseries: []*armmonitor.TimeSeriesElement{
+							{
+								Data: []*armmonitor.MetricValue{
+									{
+										TimeStamp: &timeStamps[0],
+										Total:     &aggregationValues[4],
+										Minimum:   &aggregationValues[4],
+									},
+									{
+										TimeStamp: &timeStamps[1],
+										Total:     &aggregationValues[3],
+										Minimum:   &aggregationValues[3],
+									},
+									{
+										TimeStamp: &timeStamps[2],
+										Total:     &aggregationValues[4],
+										Minimum:   &aggregationValues[3],
+									},
+									{
+										TimeStamp: &timeStamps[3],
+										Total:     &aggregationValues[2],
+										Minimum:   &aggregationValues[2],
+									},
+									{
+										TimeStamp: &timeStamps[4],
+										Total:     &aggregationValues[4],
+										Minimum:   &aggregationValues[2],
 									},
 								},
 							},
-							ErrorCode: &metricErrorCode,
 						},
+						ErrorCode: &metricErrorCode,
 					},
 				},
 			},
@@ -484,50 +468,48 @@ func (mamc *mockAzureMetricsClient) List(
 
 	if resourceID == testFullResourceGroup2ResourceType1Resource3 {
 		return armmonitor.MetricsClientListResponse{
-			MetricsClientListResult: armmonitor.MetricsClientListResult{
-				Response: armmonitor.Response{
-					Namespace:      &namespaces[0],
-					Resourceregion: &resourceRegion,
-					Value: []*armmonitor.Metric{
-						{
-							ID: &metricIDS[3],
-							Name: &armmonitor.LocalizableString{
-								LocalizedValue: &metricNames[0],
-							},
-							Unit: &metricUnits[1],
-							Timeseries: []*armmonitor.TimeSeriesElement{
-								{
-									Data: []*armmonitor.MetricValue{
-										{
-											TimeStamp: &timeStamps[0],
-											Total:     &aggregationValues[4],
-											Minimum:   &aggregationValues[4],
-										},
-										{
-											TimeStamp: &timeStamps[1],
-											Total:     &aggregationValues[3],
-											Minimum:   &aggregationValues[3],
-										},
-										{
-											TimeStamp: &timeStamps[2],
-											Total:     &aggregationValues[4],
-											Minimum:   &aggregationValues[3],
-										},
-										{
-											TimeStamp: &timeStamps[3],
-											Total:     &aggregationValues[2],
-											Minimum:   &aggregationValues[2],
-										},
-										{
-											TimeStamp: &timeStamps[4],
-											Total:     nil,
-											Minimum:   nil,
-										},
+			Response: armmonitor.Response{
+				Namespace:      &namespaces[0],
+				Resourceregion: &resourceRegion,
+				Value: []*armmonitor.Metric{
+					{
+						ID: &metricIDS[3],
+						Name: &armmonitor.LocalizableString{
+							LocalizedValue: &metricNames[0],
+						},
+						Unit: &metricUnits[1],
+						Timeseries: []*armmonitor.TimeSeriesElement{
+							{
+								Data: []*armmonitor.MetricValue{
+									{
+										TimeStamp: &timeStamps[0],
+										Total:     &aggregationValues[4],
+										Minimum:   &aggregationValues[4],
+									},
+									{
+										TimeStamp: &timeStamps[1],
+										Total:     &aggregationValues[3],
+										Minimum:   &aggregationValues[3],
+									},
+									{
+										TimeStamp: &timeStamps[2],
+										Total:     &aggregationValues[4],
+										Minimum:   &aggregationValues[3],
+									},
+									{
+										TimeStamp: &timeStamps[3],
+										Total:     &aggregationValues[2],
+										Minimum:   &aggregationValues[2],
+									},
+									{
+										TimeStamp: &timeStamps[4],
+										Total:     nil,
+										Minimum:   nil,
 									},
 								},
 							},
-							ErrorCode: &metricErrorCode,
 						},
+						ErrorCode: &metricErrorCode,
 					},
 				},
 			},
@@ -536,50 +518,48 @@ func (mamc *mockAzureMetricsClient) List(
 
 	if resourceID == testFullResourceGroup2ResourceType2Resource4 {
 		return armmonitor.MetricsClientListResponse{
-			MetricsClientListResult: armmonitor.MetricsClientListResult{
-				Response: armmonitor.Response{
-					Namespace:      &namespaces[1],
-					Resourceregion: &resourceRegion,
-					Value: []*armmonitor.Metric{
-						{
-							ID: &metricIDS[4],
-							Name: &armmonitor.LocalizableString{
-								LocalizedValue: &metricNames[0],
-							},
-							Unit: &metricUnits[1],
-							Timeseries: []*armmonitor.TimeSeriesElement{
-								{
-									Data: []*armmonitor.MetricValue{
-										{
-											TimeStamp: &timeStamps[0],
-											Total:     nil,
-											Maximum:   nil,
-										},
-										{
-											TimeStamp: &timeStamps[1],
-											Total:     nil,
-											Maximum:   nil,
-										},
-										{
-											TimeStamp: &timeStamps[2],
-											Total:     nil,
-											Maximum:   nil,
-										},
-										{
-											TimeStamp: &timeStamps[3],
-											Total:     nil,
-											Maximum:   nil,
-										},
-										{
-											TimeStamp: &timeStamps[4],
-											Total:     nil,
-											Maximum:   nil,
-										},
+			Response: armmonitor.Response{
+				Namespace:      &namespaces[1],
+				Resourceregion: &resourceRegion,
+				Value: []*armmonitor.Metric{
+					{
+						ID: &metricIDS[4],
+						Name: &armmonitor.LocalizableString{
+							LocalizedValue: &metricNames[0],
+						},
+						Unit: &metricUnits[1],
+						Timeseries: []*armmonitor.TimeSeriesElement{
+							{
+								Data: []*armmonitor.MetricValue{
+									{
+										TimeStamp: &timeStamps[0],
+										Total:     nil,
+										Maximum:   nil,
+									},
+									{
+										TimeStamp: &timeStamps[1],
+										Total:     nil,
+										Maximum:   nil,
+									},
+									{
+										TimeStamp: &timeStamps[2],
+										Total:     nil,
+										Maximum:   nil,
+									},
+									{
+										TimeStamp: &timeStamps[3],
+										Total:     nil,
+										Maximum:   nil,
+									},
+									{
+										TimeStamp: &timeStamps[4],
+										Total:     nil,
+										Maximum:   nil,
 									},
 								},
 							},
-							ErrorCode: &metricErrorCode,
 						},
+						ErrorCode: &metricErrorCode,
 					},
 				},
 			},
@@ -588,24 +568,22 @@ func (mamc *mockAzureMetricsClient) List(
 
 	if resourceID == testFullResourceGroup2ResourceType2Resource5 {
 		return armmonitor.MetricsClientListResponse{
-			MetricsClientListResult: armmonitor.MetricsClientListResult{
-				Response: armmonitor.Response{
-					Namespace:      &namespaces[1],
-					Resourceregion: &resourceRegion,
-					Value: []*armmonitor.Metric{
-						{
-							ID: &metricIDS[5],
-							Name: &armmonitor.LocalizableString{
-								LocalizedValue: &metricNames[0],
-							},
-							Unit: &metricUnits[1],
-							Timeseries: []*armmonitor.TimeSeriesElement{
-								{
-									Data: []*armmonitor.MetricValue{},
-								},
-							},
-							ErrorCode: &metricErrorCode,
+			Response: armmonitor.Response{
+				Namespace:      &namespaces[1],
+				Resourceregion: &resourceRegion,
+				Value: []*armmonitor.Metric{
+					{
+						ID: &metricIDS[5],
+						Name: &armmonitor.LocalizableString{
+							LocalizedValue: &metricNames[0],
 						},
+						Unit: &metricUnits[1],
+						Timeseries: []*armmonitor.TimeSeriesElement{
+							{
+								Data: []*armmonitor.MetricValue{},
+							},
+						},
+						ErrorCode: &metricErrorCode,
 					},
 				},
 			},
@@ -614,20 +592,18 @@ func (mamc *mockAzureMetricsClient) List(
 
 	if resourceID == testFullResourceGroup2ResourceType2Resource6 {
 		return armmonitor.MetricsClientListResponse{
-			MetricsClientListResult: armmonitor.MetricsClientListResult{
-				Response: armmonitor.Response{
-					Namespace:      &namespaces[1],
-					Resourceregion: &resourceRegion,
-					Value: []*armmonitor.Metric{
-						{
-							ID: &metricIDS[6],
-							Name: &armmonitor.LocalizableString{
-								LocalizedValue: &metricNames[0],
-							},
-							Unit:       &metricUnits[1],
-							Timeseries: []*armmonitor.TimeSeriesElement{},
-							ErrorCode:  &metricErrorCode,
+			Response: armmonitor.Response{
+				Namespace:      &namespaces[1],
+				Resourceregion: &resourceRegion,
+				Value: []*armmonitor.Metric{
+					{
+						ID: &metricIDS[6],
+						Name: &armmonitor.LocalizableString{
+							LocalizedValue: &metricNames[0],
 						},
+						Unit:       &metricUnits[1],
+						Timeseries: []*armmonitor.TimeSeriesElement{},
+						ErrorCode:  &metricErrorCode,
 					},
 				},
 			},
