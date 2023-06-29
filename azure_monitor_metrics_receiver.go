@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
 )
@@ -134,11 +133,5 @@ func NewResource(resourceType string, metrics []string, aggregations []string) *
 		resourceType: resourceType,
 		metrics:      metrics,
 		aggregations: aggregations,
-	}
-}
-
-func newAzureResourcesClient(subscriptionID string, credential *azidentity.ClientSecretCredential) *azureResourcesClient {
-	return &azureResourcesClient{
-		client: armresources.NewClient(subscriptionID, credential, nil),
 	}
 }

@@ -15,18 +15,49 @@ const (
 	MaxMetricsPerRequest = 20
 )
 
+type metricDefWrapper struct {
+	client *armmonitor.MetricDefinitionsClient
+}
+
+func (w *metricDefWrapper) List(ctx context.Context, resourceID string, options *armmonitor.MetricDefinitionsClientListOptions) (armmonitor.MetricDefinitionsClientListResponse, error) {
+	var response armmonitor.MetricDefinitionsClientListResponse
+
+	pager := w.client.NewListPager(resourceID, options)
+	for pager.More() {
+		page, err := pager.NextPage(ctx)
+		if err != nil {
+			return armmonitor.MetricDefinitionsClientListResponse{}, err
+		}
+		response.MetricDefinitionCollection.Value = append(response.MetricDefinitionCollection.Value, page.Value...)
+	}
+	return response, nil
+}
+
 // CreateAzureClients creates Azure clients.
 func CreateAzureClients(subscriptionID string, clientID string, clientSecret string, tenantID string) (*AzureClients, error) {
 	credential, err := azidentity.NewClientSecretCredential(tenantID, clientID, clientSecret, nil)
 	if err != nil {
-		return nil, fmt.Errorf("error creating Azure client credential: %v", err)
+		return nil, fmt.Errorf("error creating Azure client credential: %w", err)
+	}
+	metricClient, err := armmonitor.NewMetricsClient(subscriptionID, credential, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating Azure metric client: %w", err)
+	}
+	defClient, err := armmonitor.NewMetricDefinitionsClient(subscriptionID, credential, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating Azure definitions client: %w", err)
+	}
+
+	resClient, err := armresources.NewClient(subscriptionID, credential, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating Azure definitions client: %w", err)
 	}
 
 	return &AzureClients{
 		Ctx:                     context.Background(),
-		ResourcesClient:         newAzureResourcesClient(subscriptionID, credential),
-		MetricsClient:           armmonitor.NewMetricsClient(credential, nil),
-		MetricDefinitionsClient: armmonitor.NewMetricDefinitionsClient(credential, nil),
+		ResourcesClient:         &azureResourcesClient{client: resClient},
+		MetricsClient:           metricClient,
+		MetricDefinitionsClient: &metricDefWrapper{client: defClient},
 	}, nil
 }
 
@@ -371,15 +402,14 @@ func (ammr *AzureMonitorMetricsReceiver) SetResourceTargetsAggregations() {
 
 func (arc *azureResourcesClient) List(ctx context.Context, options *armresources.ClientListOptions) ([]*armresources.ClientListResponse, error) {
 	responses := make([]*armresources.ClientListResponse, 0)
-	pager := arc.client.List(options)
+	pager := arc.client.NewListPager(options)
 
-	for pager.NextPage(ctx) {
-		response := pager.PageResponse()
+	for pager.More() {
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return nil, err
+		}
 		responses = append(responses, &response)
-	}
-
-	if err := pager.Err(); err != nil {
-		return nil, err
 	}
 
 	return responses, nil
@@ -391,15 +421,14 @@ func (arc *azureResourcesClient) ListByResourceGroup(
 	options *armresources.ClientListByResourceGroupOptions,
 ) ([]*armresources.ClientListByResourceGroupResponse, error) {
 	responses := make([]*armresources.ClientListByResourceGroupResponse, 0)
-	pager := arc.client.ListByResourceGroup(resourceGroup, options)
+	pager := arc.client.NewListByResourceGroupPager(resourceGroup, options)
 
-	for pager.NextPage(ctx) {
-		response := pager.PageResponse()
+	for pager.More() {
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return nil, err
+		}
 		responses = append(responses, &response)
-	}
-
-	if err := pager.Err(); err != nil {
-		return nil, err
 	}
 
 	return responses, nil
