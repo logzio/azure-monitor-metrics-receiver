@@ -14,9 +14,6 @@ type AzureMonitorMetricsReceiver struct {
 	AzureClients *AzureClients
 
 	subscriptionID string
-	clientID       string
-	clientSecret   string
-	tenantID       string
 }
 
 // Targets contains all targets types.
@@ -83,14 +80,11 @@ type MetricsClient interface {
 }
 
 // NewAzureMonitorMetricsReceiver lets you create a new receiver.
-func NewAzureMonitorMetricsReceiver(subscriptionID string, clientID string, clientSecret string, tenantID string, targets *Targets, azureClients *AzureClients) (*AzureMonitorMetricsReceiver, error) {
+func NewAzureMonitorMetricsReceiver(subscriptionID string, _, _, _ string, targets *Targets, azureClients *AzureClients) (*AzureMonitorMetricsReceiver, error) {
 	azureMonitorMetricsReceiver := &AzureMonitorMetricsReceiver{
 		Targets:        targets,
 		AzureClients:   azureClients,
 		subscriptionID: subscriptionID,
-		clientID:       clientID,
-		clientSecret:   clientSecret,
-		tenantID:       tenantID,
 	}
 
 	if err := azureMonitorMetricsReceiver.checkValidation(); err != nil {
