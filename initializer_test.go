@@ -19,9 +19,6 @@ func TestCheckConfigValidation_ResourceTargetsOnly(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -39,9 +36,6 @@ func TestCheckConfigValidation_ResourceTargetWithNoResourceID(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -59,9 +53,6 @@ func TestCheckConfigValidation_ResourceTargetWithInvalidAggregation(t *testing.T
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -84,9 +75,6 @@ func TestCheckConfigValidation_ResourceGroupTargetsOnly(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -109,9 +97,6 @@ func TestCheckConfigValidation_ResourceGroupTargetWithoutResourceGroup(t *testin
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -132,9 +117,6 @@ func TestCheckConfigValidation_ResourceGroupTargetWithoutResources(t *testing.T)
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -157,9 +139,6 @@ func TestCheckConfigValidation_ResourceGroupTargetWithResourceWithoutResourceTyp
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -182,9 +161,6 @@ func TestCheckConfigValidation_ResourceGroupTargetWithInvalidAggregation(t *test
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -202,9 +178,6 @@ func TestCheckConfigValidation_SubscriptionTargetsOnly(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -222,9 +195,6 @@ func TestCheckConfigValidation_SubscriptionTargetWithoutResourceType(t *testing.
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -242,9 +212,6 @@ func TestCheckConfigValidation_SubscriptionTargetWithInvalidAggregation(t *testi
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -271,9 +238,6 @@ func TestCheckConfigValidation_AllTargetTypes(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -289,9 +253,6 @@ func TestCheckConfigValidation_NoTargets(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.checkValidation()
@@ -309,69 +270,6 @@ func TestCheckConfigValidation_NoSubscriptionID(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: "",
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
-	}
-
-	err := ammr.checkValidation()
-	require.Error(t, err)
-}
-
-func TestCheckConfigValidation_NoClientID(t *testing.T) {
-	ammr := &AzureMonitorMetricsReceiver{
-		Targets: NewTargets(
-			[]*ResourceTarget{
-				NewResourceTarget(testResourceGroup1ResourceType1Resource1, []string{}, []string{}),
-			},
-			[]*ResourceGroupTarget{},
-			[]*Resource{},
-		),
-		AzureClients:   setMockAzureClients(),
-		subscriptionID: testSubscriptionID,
-		clientID:       "",
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
-	}
-
-	err := ammr.checkValidation()
-	require.Error(t, err)
-}
-
-func TestCheckConfigValidation_NoClientSecret(t *testing.T) {
-	ammr := &AzureMonitorMetricsReceiver{
-		Targets: NewTargets(
-			[]*ResourceTarget{
-				NewResourceTarget(testResourceGroup1ResourceType1Resource1, []string{}, []string{}),
-			},
-			[]*ResourceGroupTarget{},
-			[]*Resource{},
-		),
-		AzureClients:   setMockAzureClients(),
-		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   "",
-		tenantID:       testTenantID,
-	}
-
-	err := ammr.checkValidation()
-	require.Error(t, err)
-}
-
-func TestCheckConfigValidation_NoTenantID(t *testing.T) {
-	ammr := &AzureMonitorMetricsReceiver{
-		Targets: NewTargets(
-			[]*ResourceTarget{
-				NewResourceTarget(testResourceGroup1ResourceType1Resource1, []string{}, []string{}),
-			},
-			[]*ResourceGroupTarget{},
-			[]*Resource{},
-		),
-		AzureClients:   setMockAzureClients(),
-		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       "",
 	}
 
 	err := ammr.checkValidation()
@@ -390,9 +288,6 @@ func TestAddPrefixToResourceTargetsResourceID_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	ammr.addPrefixToResourceTargetsResourceID()
@@ -424,9 +319,6 @@ func TestCreateResourceTargetsFromResourceGroupTargets_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.CreateResourceTargetsFromResourceGroupTargets()
@@ -468,9 +360,6 @@ func TestCreateResourceTargetsFromResourceGroupTargets_NoResourceFound(t *testin
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.CreateResourceTargetsFromResourceGroupTargets()
@@ -489,9 +378,6 @@ func TestCreateResourceTargetsFromSubscriptionTargets_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.CreateResourceTargetsFromSubscriptionTargets()
@@ -528,9 +414,6 @@ func TestCreateResourceTargetsFromSubscriptionTargets_NoResourceFound(t *testing
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.CreateResourceTargetsFromSubscriptionTargets()
@@ -550,9 +433,6 @@ func TestCheckResourceTargetsMetricsValidation_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.CheckResourceTargetsMetricsValidation()
@@ -572,9 +452,6 @@ func TestCheckResourceTargetsMetricsValidation_WithResourceTargetWithInvalidMetr
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.CheckResourceTargetsMetricsValidation()
@@ -594,9 +471,6 @@ func TestSetResourceTargetsMetrics_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.SetResourceTargetsMetrics()
@@ -635,9 +509,6 @@ func TestSplitResourceTargetsMetricsByMinTimeGrain_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	err := ammr.SplitResourceTargetsMetricsByMinTimeGrain()
@@ -682,9 +553,6 @@ func TestSplitResourceTargetsWithMoreThanMaxMetrics_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	for index := 1; index <= 25; index++ {
@@ -739,9 +607,6 @@ func TestChangeResourceTargetsMetricsWithComma(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	ammr.changeResourceTargetsMetricsWithComma()
@@ -779,9 +644,6 @@ func TestSetResourceTargetsAggregations_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	ammr.SetResourceTargetsAggregations()

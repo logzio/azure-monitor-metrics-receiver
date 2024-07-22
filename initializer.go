@@ -72,18 +72,6 @@ func (ammr *AzureMonitorMetricsReceiver) checkValidation() error {
 		return fmt.Errorf("subscription ID is empty or missing")
 	}
 
-	if ammr.clientID == "" {
-		return fmt.Errorf("client ID is empty or missing")
-	}
-
-	if ammr.clientSecret == "" {
-		return fmt.Errorf("client secret is empty or missing")
-	}
-
-	if ammr.tenantID == "" {
-		return fmt.Errorf("tenant ID is empty or missing")
-	}
-
 	if len(ammr.Targets.ResourceTargets) == 0 && len(ammr.Targets.resourceGroupTargets) == 0 && len(ammr.Targets.subscriptionTargets) == 0 {
 		return fmt.Errorf("no target to collect metrics from")
 	}
