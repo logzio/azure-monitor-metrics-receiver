@@ -1,12 +1,26 @@
 package azuremonitormetricsreceiver
 
 import (
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"testing"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
+
+func TestCreateAzureClients_WithoutCustomOptions(t *testing.T) {
+	_, err := CreateAzureClients(testSubscriptionID, testClientID, testClientSecret, testTenantID)
+	require.NoError(t, err)
+}
+
+func TestCreateAzureClients_WithCustomOptions(t *testing.T) {
+	options := &azcore.ClientOptions{Cloud: cloud.AzureGovernment}
+	_, err := CreateAzureClients(testSubscriptionID, testClientID, testClientSecret, testTenantID, WithAzureClientOptions(options))
+
+	require.NoError(t, err)
+}
 
 func TestCheckConfigValidation_ResourceTargetsOnly(t *testing.T) {
 	ammr := &AzureMonitorMetricsReceiver{
