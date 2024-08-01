@@ -80,7 +80,7 @@ type MetricsClient interface {
 }
 
 // NewAzureMonitorMetricsReceiver lets you create a new receiver.
-func NewAzureMonitorMetricsReceiver(subscriptionID string, _, _, _ string, targets *Targets, azureClients *AzureClients) (*AzureMonitorMetricsReceiver, error) {
+func NewAzureMonitorMetricsReceiver(subscriptionID string, targets *Targets, azureClients *AzureClients) (*AzureMonitorMetricsReceiver, error) {
 	azureMonitorMetricsReceiver := &AzureMonitorMetricsReceiver{
 		Targets:        targets,
 		AzureClients:   azureClients,
