@@ -19,9 +19,6 @@ func TestCollectResourceTargetMetrics_AllDataWithValues(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	metrics, notCollectedMetrics, err := ammr.CollectResourceTargetMetrics(ammr.Targets.ResourceTargets[0])
@@ -81,9 +78,6 @@ func TestCollectResourceTargetMetrics_LastDataWithNoValue(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	metrics, notCollectedMetrics, err := ammr.CollectResourceTargetMetrics(ammr.Targets.ResourceTargets[0])
@@ -126,9 +120,6 @@ func TestCollectResourceTargetMetrics_AllDataWithNoValues(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	metrics, notCollectedMetrics, err := ammr.CollectResourceTargetMetrics(ammr.Targets.ResourceTargets[0])
@@ -151,9 +142,6 @@ func TestCollectResourceTargetMetrics_EmptyData(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	metrics, notCollectedMetrics, err := ammr.CollectResourceTargetMetrics(ammr.Targets.ResourceTargets[0])
@@ -176,9 +164,6 @@ func TestCollectResourceTargetMetrics_EmptyTimeseries(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	metrics, notCollectedMetrics, err := ammr.CollectResourceTargetMetrics(ammr.Targets.ResourceTargets[0])
@@ -201,9 +186,6 @@ func TestGetMetricName_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	response, err := ammr.AzureClients.MetricsClient.List(ammr.AzureClients.Ctx, ammr.Targets.ResourceTargets[0].ResourceID, nil)
@@ -227,9 +209,6 @@ func TestGetMetricFields_AllTimeseriesWithData(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	response, err := ammr.AzureClients.MetricsClient.List(ammr.AzureClients.Ctx, ammr.Targets.ResourceTargets[0].ResourceID, nil)
@@ -256,9 +235,6 @@ func TestGetMetricFields_LastTimeseriesWithoutData(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	response, err := ammr.AzureClients.MetricsClient.List(ammr.AzureClients.Ctx, ammr.Targets.ResourceTargets[0].ResourceID, nil)
@@ -285,9 +261,6 @@ func TestGetMetricFields_AllTimeseriesWithoutData(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	response, err := ammr.AzureClients.MetricsClient.List(ammr.AzureClients.Ctx, ammr.Targets.ResourceTargets[0].ResourceID, nil)
@@ -308,9 +281,6 @@ func TestGetMetricFields_NoTimeseriesData(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	response, err := ammr.AzureClients.MetricsClient.List(ammr.AzureClients.Ctx, ammr.Targets.ResourceTargets[0].ResourceID, nil)
@@ -331,9 +301,6 @@ func TestGetMetricTags_Success(t *testing.T) {
 		),
 		AzureClients:   setMockAzureClients(),
 		subscriptionID: testSubscriptionID,
-		clientID:       testClientID,
-		clientSecret:   testClientSecret,
-		tenantID:       testTenantID,
 	}
 
 	response, err := ammr.AzureClients.MetricsClient.List(ammr.AzureClients.Ctx, ammr.Targets.ResourceTargets[0].ResourceID, nil)
